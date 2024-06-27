@@ -131,35 +131,49 @@ const AppFunctional = ({ className }) => {
   return (
     <div id="wrapper" className={className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates (2, 2)</h3>
-        <h3 id="steps">You moved 0 times</h3>
+        <h3 id="coordinates">{`Coordinates ${getXYMessage()}`}</h3>
+        <h3 id="steps">You moved {steps} {steps !== 1 ? 'times': 'time'}</h3>
       </div>
       <div id="grid">
-        {
-          [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
-            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
-              {idx === 4 ? 'B' : null}
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (
+            <div key={idx} className={`square${idx === index ? ' active' : ''}`}>
+              {idx === index ? 'B' : null}
             </div>
-          ))
-        }
+          ))}
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{errorMessage}</h3>
       </div>
       <div id="keypad">
-        <button id="left">LEFT</button>
-        <button id="up">UP</button>
-        <button id="right">RIGHT</button>
-        <button id="down">DOWN</button>
-        <button id="reset">reset</button>
+        <button onClick={() => move('left')} id="left">
+          LEFT
+        </button>
+        <button onClick={() => move('up')} id="up">
+          UP
+        </button>
+        <button onClick={() => move('right')} id="right">
+          RIGHT
+        </button>
+        <button onClick={() => move('down')} id="down">
+          DOWN
+        </button>
+        <button onClick={reset} id="reset">
+          reset
+        </button>
       </div>
-      <form>
-        <input id="email" type="email" placeholder="type email"></input>
-        <input id="submit" type="submit"></input>
+      <form onSubmit={onSubmit}>
+        <input
+          id="email"
+          type="email" 
+          placeholder="type email"
+          value={email}
+          onChange={onChange}
+        />
+        <input id="submit" type="submit" value="Submit" />
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default AppFunctional;
 
