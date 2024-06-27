@@ -160,3 +160,5 @@ const AppFunctional = ({ className }) => {
     </div>
   )
 }
+
+export default AppFunctional;
